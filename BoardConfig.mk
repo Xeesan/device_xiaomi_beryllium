@@ -31,6 +31,10 @@ TARGET_KERNEL_CONFIG := beryllium_defconfig
 # HIDL
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
+# Vendor init
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_beryllium
+TARGET_RECOVERY_DEVICE_MODULES := libinit_beryllium
+
 # Partitions
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 
