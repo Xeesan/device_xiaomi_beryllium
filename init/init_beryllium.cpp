@@ -68,6 +68,6 @@ void vendor_load_properties()
     };
 
     for (const auto &source : ro_props_default_source_order) {
-        set_ro_build_prop(source, "fingerprint", "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys");
+        set_ro_build_prop(source, "fingerprint", "google/redfin/redfin:11/RQ2A.210305.006/7119741:user/release-keys");
         }
 }
