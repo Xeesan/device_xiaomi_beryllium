@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/syberia_beryllium.mk
+    $(LOCAL_DIR)/hentai_beryllium.mk
 
 COMMON_LUNCH_CHOICES := \
-    syberia_beryllium-user \
-    syberia_beryllium-userdebug \
-    syberia_beryllium-eng
+    hentai_beryllium-user \
+    hentai_beryllium-userdebug \
+    hentai_beryllium-eng
