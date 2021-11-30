@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/zenx_beryllium.mk
+    $(LOCAL_DIR)/syberia_beryllium.mk
 
 COMMON_LUNCH_CHOICES := \
-    zenx_beryllium-user \
-    zenx_beryllium-userdebug \
-    zenx_beryllium-eng
+    syberia_beryllium-user \
+    syberia_beryllium-userdebug \
+    syberia_beryllium-eng
