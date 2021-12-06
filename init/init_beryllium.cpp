@@ -40,6 +40,39 @@
 
 using android::base::GetProperty;
 
+/* From Magisk@jni/magiskhide/hide_utils.c */
+static const char *snet_prop_key[] = {
+	"ro.boot.vbmeta.device_state",
+	"ro.boot.verifiedbootstate",
+	"ro.boot.flash.locked",
+	"ro.boot.selinux",
+	"ro.boot.veritymode",
+	"ro.boot.warranty_bit",
+	"ro.warranty_bit",
+	"ro.debuggable",
+	"ro.secure",
+	"ro.build.type",
+	"ro.build.tags",
+	"ro.build.selinux",
+	NULL
+};
+
+static const char *snet_prop_value[] = {
+	"locked",
+	"green",
+	"1",
+	"enforcing",
+	"enforcing",
+	"0",
+	"0",
+	"0",
+	"1",
+	"user",
+	"release-keys",
+	"1",
+	NULL
+};
+
 std::vector<std::string> ro_props_default_source_order = {
     "",
     "odm.",
@@ -59,15 +92,26 @@ void property_override(char const prop[], char const value[], bool add = true)
         __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
+void property_override_dual(char const system_prop[], char const vendor_prop[], const char value[])
+{
+	property_override(system_prop, value);
+	property_override(vendor_prop, value);
+}
+
+static void workaround_snet_properties() {
+
+	// Hide all sensitive props
+	for (int i = 0; snet_prop_key[i]; ++i) {
+		property_override(snet_prop_key[i], snet_prop_value[i]);
+	}
+
+	chmod("/sys/fs/selinux/enforce", 0640);
+	chmod("/sys/fs/selinux/policy", 0440);
+}
+
 void vendor_load_properties()
 {
-    const auto set_ro_build_prop = [](const std::string &source,
-            const std::string &prop, const std::string &value) {
-        auto prop_name = "ro." + source + "build." + prop;
-        property_override(prop_name.c_str(), value.c_str(), false);
-    };
-
-    for (const auto &source : ro_props_default_source_order) {
-        set_ro_build_prop(source, "fingerprint", "google/redfin/redfin:11/RQ3A.210605.005/7349499:user/release-keys");
-        }
+    property_override("ro.control_privapp_permissions", "log");
+//  property_override_dual("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "google/sunfish/sunfish:11/RP1A.200720.011/6746289:user/release-keys");
+//  property_override_dual("ro.build.fingerprint", "ro.product.build.fingerprint", "google/sunfish/sunfish:11/RP1A.200720.011/6746289:user/release-keys");
 }
