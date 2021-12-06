@@ -74,23 +74,15 @@ static const char *snet_prop_value[] = {
 	NULL
 };
 
-std::vector<std::string> ro_props_default_source_order = {
-    "",
-    "odm.",
-    "product.",
-    "system.",
-    "vendor.",
-};
-
-void property_override(char const prop[], char const value[], bool add = true)
+void property_override(char const prop[], char const value[])
 {
-    prop_info *pi;
+	prop_info *pi;
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
-    else if (add)
-        __system_property_add(prop, strlen(prop), value, strlen(value));
+	pi = (prop_info*) __system_property_find(prop);
+	if (pi)
+		__system_property_update(pi, value, strlen(value));
+	else
+		__system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
 void property_override_dual(char const system_prop[], char const vendor_prop[], const char value[])
