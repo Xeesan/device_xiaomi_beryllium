@@ -27,16 +27,17 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <vector>
-
+#include <stdlib.h>
+#include <android-base/properties.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
+#include <stdio.h>
+#include <sys/system_properties.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-#include <android-base/properties.h>
-#include <android-base/logging.h>
-
-#include "property_service.h"
 #include "vendor_init.h"
+#include "property_service.h"
 
 using android::base::GetProperty;
 
@@ -114,4 +115,7 @@ void vendor_load_properties()
     property_override("ro.control_privapp_permissions", "log");
 //  property_override_dual("ro.system.build.fingerprint", "ro.vendor.build.fingerprint", "google/sunfish/sunfish:11/RP1A.200720.011/6746289:user/release-keys");
 //  property_override_dual("ro.build.fingerprint", "ro.product.build.fingerprint", "google/sunfish/sunfish:11/RP1A.200720.011/6746289:user/release-keys");
+
+             // Workaround SafetyNet
+	     workaround_snet_properties()
 }
