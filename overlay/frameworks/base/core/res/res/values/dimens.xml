@@ -20,4 +20,7 @@
 <resources>
     <!-- Corners of the status bar -->
     <dimen name="rounded_corner_radius_top">104px</dimen>
+
+    <!-- Height of area above QQS where battery/time go (equal to status bar) -->
+    <dimen name="quick_qs_offset_height">72dp</dimen>
 </resources>
